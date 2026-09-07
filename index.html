@@ -1,60 +1,370 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Tarea Azure</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea Azure - Grupo 02</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #667eea, transparent);
+        }
+
+        .integrantes {
+            list-style: none;
+            margin-bottom: 30px;
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 10px 0;
+        }
+
+        .integrantes li {
+            padding: 12px 24px;
+            color: #2d3748;
+            font-size: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .integrantes li:last-child {
+            border-bottom: none;
+        }
+
+        .integrantes li:hover {
+            background: #edf2f7;
+        }
+
+        .integrantes li .carnet {
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+            min-width: 200px;
+        }
+
+        .input-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .input-group input::placeholder {
+            color: #a0aec0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #48bb78;
+            color: white;
+            box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(72, 187, 120, 0.5);
+            background: #38a169;
+        }
+
+        .btn-secondary:active {
+            transform: translateY(0);
+        }
+
+        .resultado-container {
+            background: #2d3748;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 10px;
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        .resultado-container pre {
+            color: #a0ecc4;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        .resultado-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .resultado-container::-webkit-scrollbar-track {
+            background: #1a202c;
+            border-radius: 10px;
+        }
+
+        .resultado-container::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .resultado-container::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        .empty-state {
+            color: #718096;
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+
+    
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .integrantes li {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-<h1>Grupo 02</h1>
+<div class="container">
+    <h1> Grupo 02</h1>
+    <p class="subtitle">Tarea Azure - Gestión de Estudiantes</p>
 
-<h3>Integrantes</h3>
+    <h3>Integrantes</h3>
+    <ul class="integrantes">
+        <li>
+            <span>Jose David Mota González</span>
+            <span class="carnet">202306077</span>
+        </li>
+        <li>
+            <span>Samuel Alejandro Pajoc</span>
+            <span class="carnet">201800665</span>
+        </li>
+        <li>
+            <span>Edy Donaldo López Anavizca</span>
+            <span class="carnet">199812349</span>
+        </li>
+    </ul>
 
-<ul>
-    <li>Jose David Mota González   - 202306077</li>
-    <li>Samuel Alejandro PAjoc     - 201800665</li>
-    <li>Edy Donaldo López Anavizca - 199812349</li>
-</ul>
+    <div class="input-group">
+        <input type="text" id="estudiante" placeholder="👤 Ingresa el nombre del estudiante">
+    </div>
 
-<input type="text" id="estudiante" placeholder="Estudiante">
+    <div class="button-group">
+        <button class="btn btn-primary" onclick="enviar()"> Enviar</button>
+        <button class="btn btn-secondary" onclick="registros()"> Ver Registros</button>
+    </div>
 
-<button onclick="enviar()">Enviar</button>
-
-<button onclick="registros()">Registros</button>
-
-<pre id="resultado"></pre>
+    <div class="resultado-container" id="resultadoContainer">
+        <pre id="resultado"><span class="empty-state"> No hay registros aún</span></pre>
+    </div>
+</div>
 
 <script>
+    // Reemplazar con tu URL real de Azure Function
+    const apiURL = "URL_API_MANAGEMENT";
 
-const apiURL = "URL_API_MANAGEMENT";
+    async function registros() {
+        try {
+            const resultadoElement = document.getElementById("resultado");
+            const respuesta = await fetch(apiURL);
 
-async function registros() {
+            if (!respuesta.ok) {
+                throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+            }
 
-    let respuesta = await fetch(apiURL);
+            const datos = await respuesta.json();
 
-    let datos = await respuesta.json();
+            if (Array.isArray(datos) && datos.length === 0) {
+                resultadoElement.innerHTML = '<span class="empty-state">📭 No hay registros aún</span>';
+            } else {
+                resultadoElement.textContent = JSON.stringify(datos, null, 2);
+            }
+        } catch (error) {
+            document.getElementById("resultado").textContent = ` Error al obtener registros: ${error.message}`;
+        }
+    }
 
-    document.getElementById("resultado").innerText =
-        JSON.stringify(datos,null,2);
-}
+    async function enviar() {
+        const nombre = document.getElementById("estudiante").value.trim();
 
-async function enviar() {
+        if (!nombre) {
+            alert(" Por favor, ingresa un nombre de estudiante.");
+            return;
+        }
 
-    const nombre =
-        document.getElementById("estudiante").value;
+        try {
+            const respuesta = await fetch(apiURL, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    estudiante: nombre
+                })
+            });
 
-    await fetch(apiURL,{
-        method:"PUT",
-        headers:{
-            "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-            estudiante:nombre
-        })
+            if (!respuesta.ok) {
+                throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+            }
+
+            alert(` Estudiante "${nombre}" enviado correctamente.`);
+            document.getElementById("estudiante").value = "";
+            document.getElementById("estudiante").focus();
+
+            // Opcional: actualizar registros automáticamente
+            // registros();
+
+        } catch (error) {
+            alert(` Error al enviar: ${error.message}`);
+        }
+    }
+
+    // Permitir enviar con Enter
+    document.getElementById("estudiante").addEventListener("keypress", function(e) {
+        if (e.key === "Enter") {
+            enviar();
+        }
     });
 
-    alert("Enviado");
-}
-
+    // Cargar registros al iniciar
+    window.addEventListener("load", registros);
 </script>
 
 </body>
