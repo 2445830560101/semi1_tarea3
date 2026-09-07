@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tarea Azure</title>
+</head>
+<body>
+
+<h1>Grupo 02</h1>
+
+<h3>Integrantes</h3>
+
+<ul>
+    <li>Jose David Mota González   - 202306077</li>
+    <li>Samuel Alejandro PAjoc     - 201800665</li>
+    <li>Edy Donaldo López Anavizca - 199812349</li>
+</ul>
+
+<input type="text" id="estudiante" placeholder="Estudiante">
+
+<button onclick="enviar()">Enviar</button>
+
+<button onclick="registros()">Registros</button>
+
+<pre id="resultado"></pre>
+
+<script>
+
+const apiURL = "URL_API_MANAGEMENT";
+
+async function registros() {
+
+    let respuesta = await fetch(apiURL);
+
+    let datos = await respuesta.json();
+
+    document.getElementById("resultado").innerText =
+        JSON.stringify(datos,null,2);
+}
+
+async function enviar() {
+
+    const nombre =
+        document.getElementById("estudiante").value;
+
+    await fetch(apiURL,{
+        method:"PUT",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            estudiante:nombre
+        })
+    });
+
+    alert("Enviado");
+}
+
+</script>
+
+</body>
+</html>
